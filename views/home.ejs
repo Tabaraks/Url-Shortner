@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .form {
+        margin-bottom: 30px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <h1>URL Shortner</h1>
+    <% if (locals.id) { %>
+    <p>URL generated: http://localhost:8001/url/<%= id %></p>
+    <% } %>
+    <div class="form">
+      <form method="POST" action="/url">
+        <label>Enter your original URL</label>
+        <input type="text" name="url" placeholder="https://example.com" />
+        <button type="submit">Generate</button>
+      </form>
+    </div>
+    <div>
+      <% if (locals.urls) { %>
+      <table>
+        <thead>
+          <th>S. No</th>
+          <th>Short ID</th>
+          <th>Shortened URL</th>
+          <th>Redirect URL</th>
+          <th>No. Of Clicks</th>
+        </thead>
+        <tbody>
+          <% urls.forEach((url, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= url.short_id %></td>
+            <td><p>http://localhost:8001/<%= url.short_id %></p></td>
+            <td><%= url.redirect_url %></td>
+            <td><%= url.visit_history.length %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <% } %>
+    </div>
+  </body>
+</html>
